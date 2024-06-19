@@ -1,0 +1,18 @@
+version: '3.9'
+name: 'RacingCarRL'
+
+services:
+  simulation:
+    image: RacingCarRL
+    container_name: pyRL
+    environment:
+      - DISPLAY
+      - XAUTORITY
+      - QT_X11_NO_MITSHM=1
+    ipc: host
+    network_mode: "host"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /dev:/dev
+      - ../Rl:/RacingCarRL
