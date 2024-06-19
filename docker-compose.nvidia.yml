@@ -1,0 +1,27 @@
+version: '3.9'
+name: 'racing_car_rl'
+
+services:
+  simulation:
+    image: racing_car_rl
+    container_name: py_rl
+    environment:
+      - DISPLAY
+      - XAUTORITY
+      - QT_X11_NO_MITSHM=1
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ipc: host
+    network_mode: "host"
+    # stdin_open: true
+    tty: true
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /dev:/dev
+      - ../RL:/RacingCarRL
