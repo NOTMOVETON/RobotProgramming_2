@@ -1,0 +1,6 @@
+/docker-compose.nvidia.yml
+/docker-compose.yml
+/models
+/requirements.txt
+/runs
+/test.py
