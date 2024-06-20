@@ -1,0 +1,7 @@
+eval:
+  episodes: 1
+  extra_steps: 0
+  video_folder: '../videos'
+  path_to_models: '../models/'
+  model: 'PPO_200000_0.0003' 
+  

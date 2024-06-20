@@ -1,0 +1,26 @@
+alg:
+  algorithm: 'PPO'
+  learning_rate: 0.003
+  #n_steps: 2048
+  #batch_size: 64
+  #n_epochs: 10
+  #gamma: 0.99
+  #gae_lambda: 0.95
+  #clip_range: 0.2
+  #clip_range_vf: null
+  #normalize_advantage: True
+  #ent_coef: 0.0
+  #vf_coef: 0.5
+  #max_grad_norm: 0.5
+  #use_sde: False
+  #sde_sample_freq: -1
+  #rollout_buffer_class: null
+  #rollout_buffer_kwargs: null
+  #target_kl: null
+  #stats_window_size: 100
+  tensorboard_log: '../runs'
+  #policy_kwargs: null
+  verbose: 1
+  seed: 42
+  device: 'cuda' 
+  #_init_setup_model: True
