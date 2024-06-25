@@ -5,7 +5,7 @@ from EnvWrapper import ActionWrapper
 from gymnasium.wrappers import RecordVideo, HumanRendering
 
 STD_PARAMS = Params('../params/model.yaml')
-ALGS = {'PPO': PPO, 'A2C': A2C, 'SAC': SAC, 'DQN': DQN}
+ALGS = {'PPO': PPO, 'A2C': A2C, 'DQN': DQN}
 
 class Agent():
 
@@ -23,8 +23,9 @@ class Agent():
             tb_log_name=self.model_params.alg['algorithm'],
             progress_bar=params.train['progress_bar']
                          )
-        self.model.save(f"{params.train['path_to_models']}/{self.model_params.alg['algorithm']}_{params.train['total_timesteps']}"+
-                        f"{self.model_params.train['learning_rate']}")
+        self.model.save(f"{params.train['path_to_models']}/{self.model_params.alg['algorithm']}_{params.train['total_timesteps']}_"+
+                        f"{self.model.get_parameters()['policy.optimizer']['param_groups'][0]['lr']}")
+
 
     
     def eval(self, params: Params, render_mode: str):
@@ -111,35 +112,6 @@ class Agent():
                 verbose=params.alg['verbose'],
                 device=params.alg['device']
             )
-        elif params.alg['algorithm'] == 'SAC':
-            return SAC(
-                policy=params.alg['policy'],
-                env=self.env,
-                learning_rate=params.SAC['learning_rate'],
-                buffer_size=params.SAC['buffer_size'],
-                learning_starts=params.SAC['learning_starts'],
-                batch_size=params.SAC['batch_size'],
-                tau=params.SAC['tau'],
-                gamma=params.SAC['gamma'],
-                train_freq=params.SAC['train_freq'],
-                gradient_steps=params.SAC['gradient_steps'],
-                action_noise=params.SAC['action_noise'],
-                replay_buffer_class=params.SAC['replay_buffer_class'],
-                replay_buffer_kwargs=params.SAC['replay_buffer_kwargs'],
-                optimize_memory_usage=params.SAC['optimize_memory_usage'],
-                ent_coef=params.SAC['ent_coef'],
-                target_update_interval=params.SAC['target_update_interval'],
-                target_entropy=params.SAC['target_entropy'],
-                use_sde=params.SAC['use_sde'],
-                sde_sample_freq=params.SAC['sde_sample_freq'],
-                use_sde_at_warmup=params.SAC['use_sde_at_warmup'],
-                stats_window_size=params.SAC['stats_window_size'],
-                tensorboard_log=params.alg['tensorboard_log'],
-                policy_kwargs=params.SAC['policy_kwargs'],
-                verbose=params.alg['verbose'],
-                seed=params.alg['seed'],
-                device=params.alg['device']
-            )
         elif params.alg['algorithm'] == 'A2C':
             return A2C(
                 policy=params.alg['policy'],
@@ -173,8 +145,6 @@ class Agent():
             return ActionWrapper(gym.make('CarRacing-v2', continuous=True, render_mode='rgb_array'))
         elif params.alg['algorithm'] == 'DQN':
             return gym.make('CarRacing-v2', continuous=False, render_mode='rgb_array')
-        elif params.alg['algorithm'] == 'SAC':
-            return ActionWrapper(gym.make('CarRacing-v2', continuous=True, render_mode='rgb_array'))
         elif params.alg['algorithm'] == 'A2C':
             return ActionWrapper(gym.make('CarRacing-v2', continuous=True, render_mode='rgb_array'))
         else:
