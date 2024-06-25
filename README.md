@@ -123,18 +123,24 @@ Venv now ready to work and you can go to [usage section](#Usage).
 - `model.yaml` contain general hyperparameters for algorithm (learning rate etc.) (list of parameters not full, because different algorithms takes different arguments and hyperparameters)
 - `train.yaml` contain parameters for `model.learn()` method and folder for saving trained models. More information could be found [here](https://stable-baselines3.readthedocs.io/en/master/modules/base.html)
 - `eval.yaml` contain parameters for evaluating model, such as folders for videos etc.   
-3. Start training/evaluating models with command below:
+
+2. Start training/evaluating models with command below:
 ```shell
 python car_goes_brr.py -a=<action>
 ```
 , where argument `action` can take following values: `train`, `evaluate_human` and `evaluate_record`.
 While executing given action programm takes parameters from params file. 
-4. (OPTIONAL) Launch `Tensorboard` by going to `http://localhost:6006` or simply use VSCode extension(RECOMMENDED).
+
+3. (OPTIONAL) Launch `Tensorboard` by going to `http://localhost:6006` or simply use VSCode extension(RECOMMENDED).
 During the training process, you can observe graphs of the average length of an episode and the average reward per episode via [tensorboard](https://pytorch.org/docs/stable/tensorboard.html).
-5. (OPTIONAL) Use different algorithms. 
+
+4. (OPTIONAL) Use different algorithms. 
 Via `model.yaml` you can choose algorithm for solving current task.
 
 ## Results
 To verify different approaches we conducted experiments with 3 different algorithms: PPO, SAC, A2C, and different hyperparameters for each.
-All of used algorithms are very different and detailed analysis on each one of them would consume too much time. Аor this reason, theoretical information and analysis of algorithms can be found at the [link](https://stable-baselines3.readthedocs.io/en/master/modules/base.html). (if necessary, they can be described in more detail at the face-to-face defense).
+All of used algorithms are very different and detailed analysis on each one of them would consume too much time. For this reason, theoretical information and analysis of algorithms can be found at the [link](https://stable-baselines3.readthedocs.io/en/master/modules/base.html). (if necessary, they can be described in more detail at the face-to-face defense).
 
+In general, PPO showed himself the best of all among A2C, PPO, DQN. Average reward after 1000 episodes of training(1000 timesteps each, 1_000_000 total) for PPO is 751, A2C- 434, DQN - 117. The reward is -0.1 every frame and +1000/N for every track tile visited, where N is the total number of tiles visited in the track. For example, if you have finished in 732 frames, your reward is 1000 - 0.1*732 = 926.8 points, so the maximum reward is tend to 1000. 
+
+More detailed results will be shown in face2face defense of the project.
